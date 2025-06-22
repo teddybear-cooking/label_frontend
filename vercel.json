@@ -23,6 +23,6 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "https://your-backend-service-name.onrender.com"
+    "REACT_APP_API_URL": "https://label-data-collector.onrender.com"
   }
 } 
