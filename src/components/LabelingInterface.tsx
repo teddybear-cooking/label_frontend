@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LabelingService } from '../api/api.service';
 import { LabelCategory } from '../api/types';
-import ToothlessViewer from './ToothlessModel';
 import '../styles/LabelingInterface.css';
 
 const LabelingInterface: React.FC = () => {
@@ -65,8 +64,6 @@ const LabelingInterface: React.FC = () => {
 
     return (
         <div className="labeling-interface">
-            <ToothlessViewer />
-
             <section className="user-input-section">
                 <div className="section-header">
                     <p className="helper-text">

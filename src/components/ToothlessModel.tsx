@@ -2,16 +2,8 @@ import React from 'react';
 import { ENABLE_3D_MODEL, ENABLE_DEBUG_MODE } from '../api/config';
 
 export function ToothlessViewer() {
-    // Debug logging
-    console.log('ToothlessViewer - ENABLE_3D_MODEL:', ENABLE_3D_MODEL);
-    console.log('ToothlessViewer - Environment variables:', {
-        REACT_APP_ENABLE_3D_MODEL: process.env.REACT_APP_ENABLE_3D_MODEL,
-        NODE_ENV: process.env.NODE_ENV
-    });
-    
     // Don't render the 3D model if disabled
     if (!ENABLE_3D_MODEL) {
-        console.log('ToothlessViewer disabled - 3D Model feature is off');
         if (ENABLE_DEBUG_MODE) {
             console.log('ToothlessViewer disabled - 3D Model feature is off');
         }
