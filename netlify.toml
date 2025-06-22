@@ -1,0 +1,17 @@
+[build]
+  publish = "build"
+  command = "npm run build"
+
+[build.environment]
+  REACT_APP_API_URL = "https://your-backend-service-name.onrender.com"
+  GENERATE_SOURCEMAP = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable" 
