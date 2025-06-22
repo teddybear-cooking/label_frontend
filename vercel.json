@@ -23,6 +23,7 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "https://label-data-collector.onrender.com"
+    "REACT_APP_API_URL": "https://label-data-collector.onrender.com",
+    "REACT_APP_ENABLE_3D_MODEL": "false"
   }
 } 

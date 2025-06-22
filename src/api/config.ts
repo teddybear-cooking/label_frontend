@@ -3,7 +3,7 @@ export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8
 export const API_TIMEOUT = parseInt(process.env.REACT_APP_API_TIMEOUT || '10000', 10);
 export const APP_ENV = process.env.REACT_APP_ENV || 'development';
 export const ENABLE_DEBUG_MODE = process.env.REACT_APP_ENABLE_DEBUG_MODE === 'true';
-export const ENABLE_3D_MODEL = process.env.REACT_APP_ENABLE_3D_MODEL !== 'false';
+export const ENABLE_3D_MODEL = process.env.REACT_APP_ENABLE_3D_MODEL === 'true';
 
 // Development configurations
 export const MOCK_API = process.env.REACT_APP_MOCK_API === 'true';
