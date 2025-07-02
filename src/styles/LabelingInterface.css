@@ -2,32 +2,34 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  font-family: 'Times New Roman', serif;
 }
 
 .labeling-interface h1 {
   text-align: center;
-  color: var(--text-color);
+  color: #000;
   margin-bottom: 2rem;
   font-size: 2rem;
+  font-weight: normal;
 }
 
 .existing-text-section,
 .user-input-section {
-  background-color: var(--card-background);
+  background-color: #fff;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000;
   margin-bottom: 2rem;
 }
 
 .existing-text-section h2,
 .user-input-section h2 {
-  color: var(--text-color);
+  color: #000;
   font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   display: inline-block;
+  font-weight: bold;
 }
 
 .existing-text-section h2::after,
@@ -37,24 +39,40 @@
   bottom: -8px;
   left: 0;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #2196F3, #4CAF50);
-  border-radius: 2px;
+  height: 2px;
+  background: #000;
 }
 
 .text-display {
-  background-color: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-  min-height: 100px;
+  background-color: #fafafa;
+  padding: 2rem;
+  border: 3px solid #000;
+  margin-bottom: 2rem;
+  min-height: 120px;
+  position: relative;
+  box-shadow: 4px 4px 0px #000;
+}
+
+.text-display::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #ccc;
+  pointer-events: none;
 }
 
 .text-display p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-color);
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: #000;
   margin: 0;
+  text-align: justify;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-indent: 1.5rem;
 }
 
 .input-section {
@@ -65,84 +83,87 @@
   width: 100%;
   min-height: 100px;
   padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 2px solid #000;
   font-size: 1.1rem;
   line-height: 1.6;
   resize: vertical;
+  font-family: 'Times New Roman', serif;
+  background-color: #fff;
+  color: #000;
 }
 
-.category-buttons {
+.category-checkboxes {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  flex-wrap: nowrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.category-buttons button {
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.checkbox-label:hover {
+  background-color: #f5f5f5;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.checkbox-text {
   text-transform: capitalize;
-  flex: 1;
-  min-width: 0;
   font-size: 0.9rem;
-  padding: 0.75rem 0.5rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
+  color: #000;
 }
 
-.category-buttons button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Category-specific colors for checked checkboxes */
+.checkbox-label:nth-child(1) input[type="checkbox"]:checked + .checkbox-text { /* normal */
+  color: #4CAF50;
+  font-weight: bold;
 }
 
-/* Category-specific colors */
-.category-buttons button:nth-child(1) { /* normal */
-  background-color: #4CAF50;
-}
-.category-buttons button:nth-child(1):hover:not(:disabled) {
-  background-color: #43A047;
+.checkbox-label:nth-child(2) input[type="checkbox"]:checked + .checkbox-text { /* hate_speech */
+  color: #F44336;
+  font-weight: bold;
 }
 
-.category-buttons button:nth-child(2) { /* hate_speech */
-  background-color: #F44336;
-}
-.category-buttons button:nth-child(2):hover:not(:disabled) {
-  background-color: #E53935;
+.checkbox-label:nth-child(3) input[type="checkbox"]:checked + .checkbox-text { /* offensive */
+  color: #FF9800;
+  font-weight: bold;
 }
 
-.category-buttons button:nth-child(3) { /* offensive */
-  background-color: #FF9800;
-}
-.category-buttons button:nth-child(3):hover:not(:disabled) {
-  background-color: #FB8C00;
+.checkbox-label:nth-child(4) input[type="checkbox"]:checked + .checkbox-text { /* religious_hate */
+  color: #9C27B0;
+  font-weight: bold;
 }
 
-.category-buttons button:nth-child(4) { /* religious_hate */
-  background-color: #9C27B0;
-}
-.category-buttons button:nth-child(4):hover:not(:disabled) {
-  background-color: #8E24AA;
+.checkbox-label:nth-child(5) input[type="checkbox"]:checked + .checkbox-text { /* political_hate */
+  color: #2196F3;
+  font-weight: bold;
 }
 
-.category-buttons button:nth-child(5) { /* political_hate */
-  background-color: #2196F3;
-}
-.category-buttons button:nth-child(5):hover:not(:disabled) {
-  background-color: #1976D2;
-}
+
+
+
 
 .skip-button {
   display: block;
   margin: 0 auto;
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-}
-
-.skip-button:hover:not(:disabled) {
-  background-color: rgba(33, 150, 243, 0.1);
-  transform: none;
-  box-shadow: none;
 }
 
 .message {
@@ -151,63 +172,199 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 1rem 2rem;
-  border-radius: 4px;
   font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000;
   z-index: 1000;
   max-width: 90%;
   text-align: center;
+  background-color: #fff;
+  color: #000;
+  font-family: 'Times New Roman', serif;
 }
 
+/* Mobile Styles */
 @media (max-width: 768px) {
   .labeling-interface {
     padding: 1rem;
+    max-width: 100%;
+  }
+
+  .labeling-interface h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .existing-text-section,
   .user-input-section {
     padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #000;
   }
 
-  .category-buttons {
-    flex-wrap: wrap;
+  .existing-text-section h2,
+  .user-input-section h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 
-  .category-buttons button {
-    flex: 1 1 auto;
-    font-size: 0.8rem;
-    padding: 0.5rem;
+  .text-display {
+    padding: 1rem;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 0px #000;
+    min-height: 80px;
+  }
+
+  .text-display p {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-indent: 0;
+  }
+
+  .input-section textarea {
+    min-height: 80px;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #000;
+  }
+
+  .category-checkboxes {
+    gap: 0.3rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .checkbox-label {
+    min-width: 200px;
+    width: 100%;
+    max-width: 280px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    justify-content: flex-start;
+    border: 1px solid #000;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
   }
 
   .helper-text {
-    padding: 1rem;
-    font-size: 1rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    border: 1px solid #000;
+    text-align: center;
   }
 
   .helper-text .highlight {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
   }
 
   .helper-text .thank-you,
   .helper-text .sub-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .helper-text .note {
     font-size: 0.8rem;
   }
+
+  .message {
+    bottom: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    max-width: 95%;
+  }
+
+  .toothless-container {
+    height: 200px;
+    margin: 1rem 0;
+    border: 1px solid #000;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .labeling-interface {
+    padding: 0.5rem;
+  }
+
+  .labeling-interface h1 {
+    font-size: 1.3rem;
+  }
+
+  .existing-text-section,
+  .user-input-section {
+    padding: 0.75rem;
+  }
+
+  .existing-text-section h2,
+  .user-input-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .text-display {
+    padding: 0.75rem;
+    min-height: 60px;
+  }
+
+  .text-display p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .input-section textarea {
+    min-height: 70px;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .checkbox-label {
+    min-width: 180px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  .helper-text {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .helper-text .highlight {
+    font-size: 0.9rem;
+  }
+
+  .helper-text .thank-you,
+  .helper-text .sub-text {
+    font-size: 0.8rem;
+  }
+
+  .helper-text .note {
+    font-size: 0.75rem;
+  }
+
+  .toothless-container {
+    height: 150px;
+    margin: 0.5rem 0;
+  }
 }
 
 .message.success {
-  background-color: #dff0d8;
-  color: #3c763d;
-  border: 1px solid #d6e9c6;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
 }
 
 .message.error {
-  background-color: #f2dede;
-  color: #a94442;
-  border: 1px solid #ebccd1;
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
 }
 
 .section-header {
@@ -216,36 +373,39 @@
 }
 
 .helper-text {
-  background: linear-gradient(to right, #f8f9fa, #e9ecef, #f8f9fa);
+  background: #fff;
   padding: 1.5rem;
-  border-radius: 8px;
+  border: 1px solid #000;
   margin-bottom: 1rem;
   font-size: 1.1rem;
   line-height: 1.6;
+  font-family: 'Times New Roman', serif;
 }
 
 .helper-text .highlight {
-  color: #2196F3;
-  font-weight: 500;
+  color: #000;
+  font-weight: bold;
   font-size: 1.2rem;
   display: block;
   margin-bottom: 0.5rem;
+  text-decoration: underline;
 }
 
 .helper-text .thank-you {
-  color: #4CAF50;
-  font-weight: 500;
+  color: #000;
+  font-weight: bold;
   font-size: 1.1rem;
 }
 
 .helper-text .sub-text {
-  color: #666;
+  color: #000;
   display: block;
   margin: 0.5rem 0;
+  font-style: italic;
 }
 
 .helper-text .note {
-  color: #9e9e9e;
+  color: #000;
   font-size: 0.9rem;
   font-style: italic;
   display: block;
@@ -255,10 +415,9 @@
     width: 100%;
     height: 300px;
     margin: 2rem 0;
-    border-radius: 8px;
     overflow: hidden;
-    background: linear-gradient(to bottom, #1a1a1a, #2a2a2a);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border: 2px solid #000;
 }
 
 .toothless-container canvas {

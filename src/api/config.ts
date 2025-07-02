@@ -5,7 +5,7 @@ console.log('Environment check:', {
     allEnvVars: Object.keys(process.env).filter(key => key.startsWith('REACT_APP'))
 });
 
-export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 export const API_TIMEOUT = parseInt(process.env.REACT_APP_API_TIMEOUT || '10000', 10);
 export const APP_ENV = process.env.REACT_APP_ENV || 'development';
 export const ENABLE_DEBUG_MODE = process.env.REACT_APP_ENABLE_DEBUG_MODE === 'true';

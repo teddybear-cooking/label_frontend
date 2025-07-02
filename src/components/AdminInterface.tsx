@@ -50,8 +50,8 @@ const AdminInterface: React.FC = () => {
                     
                     <button 
                         type="submit" 
-                        className="submit-button"
                         disabled={isLoading || !paragraphText.trim()}
+                        style={{ backgroundColor: 'red', color: 'white' }}
                     >
                         {isLoading ? 'Submitting...' : 'Submit'}
                     </button>

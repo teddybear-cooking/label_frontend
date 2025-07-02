@@ -8,8 +8,19 @@ const LabelingInterface: React.FC = () => {
     const [userInput, setUserInput] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [selectedUserInputCategory, setSelectedUserInputCategory] = useState<LabelCategory | null>(null);
+    const [selectedExistingTextCategory, setSelectedExistingTextCategory] = useState<LabelCategory | null>(null);
 
     const categories: LabelCategory[] = ['normal', 'hate_speech', 'offensive', 'religious_hate', 'political_hate'];
+
+    // Helper function to format category names for display
+    const formatCategoryName = (category: string): string => {
+        return category
+            .replace('_', ' ')
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
 
     useEffect(() => {
         fetchNextSentence();
@@ -29,11 +40,17 @@ const LabelingInterface: React.FC = () => {
         }
     };
 
-    const handleExistingLabel = async (category: LabelCategory) => {
+    const handleExistingTextSubmit = async () => {
+        if (!selectedExistingTextCategory) {
+            setMessage('Please select a category before submitting.');
+            return;
+        }
+
         try {
             setIsLoading(true);
-            await LabelingService.labelSentence(currentText, category);
+            await LabelingService.labelSentence(currentText, selectedExistingTextCategory);
             setMessage('Successfully labeled existing text!');
+            setSelectedExistingTextCategory(null);
             fetchNextSentence();
         } catch (error) {
             setMessage('Error labeling text. Please try again.');
@@ -43,17 +60,23 @@ const LabelingInterface: React.FC = () => {
         }
     };
 
-    const handleUserInputLabel = async (category: LabelCategory) => {
+    const handleUserInputSubmit = async () => {
         if (!userInput.trim()) {
             setMessage('Please enter some text to label.');
             return;
         }
 
+        if (!selectedUserInputCategory) {
+            setMessage('Please select a category before submitting.');
+            return;
+        }
+
         try {
             setIsLoading(true);
-            await LabelingService.labelUserInput(userInput, category);
+            await LabelingService.labelUserInput(userInput, selectedUserInputCategory);
             setMessage('Successfully labeled your input!');
             setUserInput('');
+            setSelectedUserInputCategory(null);
         } catch (error) {
             setMessage('Error labeling text. Please try again.');
             console.error('Error:', error);
@@ -62,18 +85,23 @@ const LabelingInterface: React.FC = () => {
         }
     };
 
+    const handleUserInputCategoryChange = (category: LabelCategory) => {
+        setSelectedUserInputCategory(category === selectedUserInputCategory ? null : category);
+    };
+
+    const handleExistingTextCategoryChange = (category: LabelCategory) => {
+        setSelectedExistingTextCategory(category === selectedExistingTextCategory ? null : category);
+    };
+
     return (
         <div className="labeling-interface">
             <section className="user-input-section">
                 <div className="section-header">
                     <p className="helper-text">
-                        <span className="sub-text" style={{ fontWeight: 'bold' }}>"Collecting data for my Model"</span>
-                        <br />
-                        <span className="sub-text" style={{ fontWeight: 'bold' }}>I know you can give me some naughty sentences.</span>
-                        <br />
-                        <span className="note">The only data we'll take is your text input and the class of it 🙂</span>
+                        <span className="sub-text" style={{ fontWeight: 'bold' }}>"I need more data 🙏"</span>
+                        <span className="note">only text and label will be collected</span>
                     </p>
-                    <h2>Write anything and choose what you write</h2>
+                    <h2>Write and choose label</h2>
                 </div>
                 <div className="input-section">
                     <textarea
@@ -83,17 +111,28 @@ const LabelingInterface: React.FC = () => {
                         rows={4}
                     />
                 </div>
-                <div className="category-buttons">
+                <div className="category-checkboxes">
                     {categories.map((category) => (
-                        <button
-                            key={category}
-                            onClick={() => handleUserInputLabel(category)}
-                            disabled={isLoading || !userInput.trim()}
-                        >
-                            {category.replace('_', ' ')}
-                        </button>
+                        <label key={category} className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                checked={selectedUserInputCategory === category}
+                                onChange={() => handleUserInputCategoryChange(category)}
+                                disabled={isLoading}
+                            />
+                            <span className="checkbox-text">{formatCategoryName(category)}</span>
+                        </label>
                     ))}
                 </div>
+                {selectedUserInputCategory && (
+                    <button 
+                        onClick={handleUserInputSubmit}
+                        disabled={isLoading || !userInput.trim()}
+                        style={{ backgroundColor: 'red', color: 'white' }}
+                    >
+                        {isLoading ? 'Submitting...' : 'Submit Label'}
+                    </button>
+                )}
             </section>
 
             <section className="existing-text-section">
@@ -108,19 +147,29 @@ const LabelingInterface: React.FC = () => {
                 <div className="text-display">
                     <p>{currentText || 'Loading...'}</p>
                 </div>
-                <div className="category-buttons">
+                <div className="category-checkboxes">
                     {categories.map((category) => (
-                        <button
-                            key={category}
-                            onClick={() => handleExistingLabel(category)}
-                            disabled={isLoading || !currentText}
-                        >
-                            {category.replace('_', ' ')}
-                        </button>
+                        <label key={category} className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                checked={selectedExistingTextCategory === category}
+                                onChange={() => handleExistingTextCategoryChange(category)}
+                                disabled={isLoading}
+                            />
+                            <span className="checkbox-text">{formatCategoryName(category)}</span>
+                        </label>
                     ))}
                 </div>
+                {selectedExistingTextCategory && (
+                    <button 
+                        onClick={handleExistingTextSubmit}
+                        disabled={isLoading || !currentText}
+                        style={{ backgroundColor: 'red', color: 'white' }}
+                    >
+                        {isLoading ? 'Submitting...' : 'Submit Label'}
+                    </button>
+                )}
                 <button 
-                    className="skip-button"
                     onClick={fetchNextSentence}
                     disabled={isLoading}
                 >
